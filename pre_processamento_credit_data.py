@@ -19,3 +19,13 @@ base['age'].maen() #média somente da coluna 'age' obs: c dados invalidos
 base['age'][base.age > 0].mean() #média somente dos valores acima de 0.
 base.loc[base.age < 0, 'age'] = 40.92 #substitui os valores negativos das idades pelas médias.
 
+pd.isnull(base['age']) #procura os valores em branco da coluna 'age'
+base.loc[pd.isnull(base['age'])] #localiza somente as linhas com valores nulos em 'age'
+
+previsores = base.iloc[:, 1:4].values #cria uma variável com tods as linhas e com as colunas 1 a 3.
+classe = base.iloc[:, 4].values #cria uma variável com todas as linhas e com a coluna 4.
+
+from sklearn.preprocessing importer Imputer
+imputer = Imputer(missing_values='NaN', strategy='mean', axis = 0) #seleciona apenas valores 'NaN' e substitui pela média
+imputer = imputer.fit(previsores[:, 0:3])
+previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
